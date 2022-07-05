@@ -36,12 +36,11 @@ const appNavigator = () => {
           setTimeout(() => {
             setSplashScreen(false);
           }, 3000);
-        } else {
-          setAuth(false);
-          setSplashScreen(false);
         }
       }, (err) => {
           console.log(err);
+          setAuth(false);
+          setSplashScreen(false);
       });
     } catch (error) {
       console.log('error', error);

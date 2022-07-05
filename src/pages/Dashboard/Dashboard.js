@@ -9,33 +9,27 @@ import {useLocal} from '../../hook';
 import Header from '@components/dashboard/dashboardHeader';
 import ProductList from '@components/dashboard/product/productList';
 
-const ProductData = () => {
-  return fetch('https://postmanmaster.herokuapp.com/fruit')
-    .then((response) => response.json())
-    .then((json) => {
-      return json;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
 const Dashboard = ({navigation}) => {
   const {getAuth, userInfo} = useContext(AuthContext);
 
   const local = useLocal();
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
-  const getData = () => {
-    try {
-      const data = appStorage.getItem('@user.data');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getData = () => {
+  //   try {
+  //     RNSecureKeyStore.get('@user.data')
+  //     .then((res) => {
+  //         const data = JSON.parse(res);
+  //     }, (err) => {
+  //         console.log(err);
+  //     });
+  //   } catch (error) {
+  //     console.log('error', error);
+  //   }
+  // };
 
   const logoutHandler = () => {
     try {
@@ -65,7 +59,6 @@ const Dashboard = ({navigation}) => {
 
       {/* product list */}
       <ProductList
-        data={ProductData}
         priceTitle={local.price}
         addToCartTitle={local.addToCart}
         addToCartAction={addToCartHandler}

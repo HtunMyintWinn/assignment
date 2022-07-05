@@ -20,27 +20,23 @@ const Login = ({navigation}) => {
       RNSecureKeyStore.get('@user.data')
       .then((res) => {
         if (res) {
-          console.log('set login data',res);
-          goLogin(JSON.parse(res));
+          const data = JSON.parse(res);
+          if (data.userEmail === loginData.email && data.userPwd === loginData.password) {
+            getAuth(true);
+          } 
+          else ToastAndroid.show('Email or password wrong!', ToastAndroid.SHORT);
         } else {
           setAuth(false);
           setSplashScreen(false);
         }
       }, (err) => {
           console.log(err);
+          ToastAndroid.show('Email or password wrong!', ToastAndroid.SHORT);
+
       });
       
     } catch (error) {
       console.log('error :', error);
-    }
-  };
-
-  const goLogin = value => {
-    console.log('store data',value);
-    if (value.userEmail === email && value.userPwd === password) {
-      getAuth(true);
-    } else {
-      ToastAndroid.show('Email or password wrong!', ToastAndroid.SHORT);
     }
   };
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   View,
   Text,
@@ -20,6 +20,20 @@ import Cart from '@assets/icons/cart';
 
 const productList = props => {
   const [count, setCount] = useState(0);
+  const [data,setData] = useState('');
+
+   useEffect(() => {
+      fetch('https://postmanmaster.herokuapp.com/fruit')
+      .then((response) => response.json())
+      .then((json) => {
+        console.log('json data',json);
+        setData(json);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
 
   const renderComponent = ({item}) => {
     return (
@@ -30,7 +44,7 @@ const productList = props => {
         {/* product image */}
 
         <View style={styles.imageContainer}>
-          <Image source={item.imageUrl} style={styles.image} />
+          <Image source={require('@assets/images/apple.png')} style={styles.image} />
         </View>
 
         {/* product description */}
@@ -56,7 +70,7 @@ const productList = props => {
   return (
     <View style={styles.productListContainer}>
       <FlatList
-        data={props.data}
+        data={data}
         numColumns={2}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderComponent}
