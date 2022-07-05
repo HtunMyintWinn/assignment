@@ -11,29 +11,30 @@ import ProductList from '@components/dashboard/product/productList';
 
 const Dashboard = ({navigation}) => {
   const {getAuth, userInfo} = useContext(AuthContext);
+  console.log(getAuth,userInfo);
 
   const local = useLocal();
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
-  // const getData = () => {
-  //   try {
-  //     RNSecureKeyStore.get('@user.data')
-  //     .then((res) => {
-  //         const data = JSON.parse(res);
-  //     }, (err) => {
-  //         console.log(err);
-  //     });
-  //   } catch (error) {
-  //     console.log('error', error);
-  //   }
-  // };
+  const getData = () => {
+    try {
+      RNSecureKeyStore.get('@user.data')
+      .then((res) => {
+          const data = JSON.parse(res);
+      }, (err) => {
+          console.log(err);
+      });
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
   const logoutHandler = () => {
     try {
-      appStorage.removeItem('@user.token');
+      appStorage.removeItem('@user.data');
       getAuth(false);
     } catch (error) {
       console.log('error', error);

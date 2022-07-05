@@ -18,7 +18,16 @@ const Password = (props) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [password, setPassword] = useState('');
   const [confirm_password,setConfirmPassword] = useState('');  
-  setAuthData({...authData,password:password,confirm_password:confirm_password});
+  
+  const setPasswordValue = (value) => {
+    setPassword(value);
+    setAuthData({...authData,password:password,confirm_password:confirm_password});
+  }
+
+  const setConfirmPasswordValue = (value) => {
+    setConfirmPassword(value);
+    setAuthData({...authData,password:password,confirm_password:confirm_password});
+  }
   
   return (
     <View style={styles.container}>
@@ -31,17 +40,17 @@ const Password = (props) => {
             secureTextEntry
             style={[styles.input, {marginTop: 20}]}
             value={password}
-            onChangeText={setPassword}
+            onChangeText={(text) => setPasswordValue(text)}
           />
         </View>
         <View
-          style={{flexDirection: 'column', marginLeft: 20, top: 13}}>
-          <Text style={{color: 'gray'}}>Remember Password</Text>
+          style={{flexDirection: 'row', marginLeft: 20, top: 13}}>
           <CheckBox
             disabled={false}
             value={toggleCheckBox}
             onValueChange={(newValue) => setToggleCheckBox(newValue)}
           />
+          <Text style={{color: 'gray',marginTop:8}}>Remember Password</Text>
         </View>
       </>
        :
@@ -52,7 +61,7 @@ const Password = (props) => {
          secureTextEntry
          style={[styles.input, {marginTop: 20}]}
          value={password}
-         onChangeText={setPassword}
+         onChangeText={(text) => setPasswordValue(text)}
        />
        </View> 
        <View style={styles.inputContainer}>
@@ -61,7 +70,7 @@ const Password = (props) => {
             secureTextEntry
             style={[styles.input, {marginTop: 20}]}
             value={confirm_password}
-            onChangeText={setConfirmPassword}
+            onChangeText={(text) => setConfirmPasswordValue(text)}
           />
         </View>
         </>

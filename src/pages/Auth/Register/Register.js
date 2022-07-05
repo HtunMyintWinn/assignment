@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ToastAndroid} from 'react-native';
 
 // Components
 import Header from '@components/login/header';
@@ -19,8 +19,8 @@ const Register = ({navigation}) => {
   const actionHandler = (values) => {
     let data = {
       userEmail: values.email,
-      userPwd: '123456',
-      userConfirmPwd: '123456'
+      userPwd: values.password,
+      userConfirmPwd: values.confirm_password
     };
     try {
       appStorage.setItem('@user.data', JSON.stringify(data));
@@ -39,7 +39,11 @@ const Register = ({navigation}) => {
   };
 
   const nextHandler = (values) => {
+    if(values.email)
+    {
     navigation.navigate('Password',{data: values,setData: setRegisterData,action : actionHandler});
+    }
+    else ToastAndroid.show('Email is required!', ToastAndroid.SHORT);
   };
 
   return (

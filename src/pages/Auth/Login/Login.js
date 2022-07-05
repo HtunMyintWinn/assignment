@@ -49,7 +49,12 @@ const Login = ({navigation}) => {
   };
 
   const nextHandler = (values) => {
-    navigation.navigate('Password',{data: values,setData: setLoginData,action : actionHandler});
+    if(values.email)
+    {
+      navigation.navigate('Password',{data: values,setData: setLoginData,action : actionHandler});
+    }
+    else ToastAndroid.show('Email is required!', ToastAndroid.SHORT);
+    
   };
 
   const changeLanguage = value => {
